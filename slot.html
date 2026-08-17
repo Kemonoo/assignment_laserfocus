@@ -46,33 +46,29 @@
         <button class="dialog-close" type="button" data-dialog-close aria-label="Close methodology">×</button>
       </div>
       <div class="dialog-copy">
-        <h2>Concept &amp; art direction</h2>
-        <p>Instead of presenting another flat casino interface, I treated the prototype as a living industrial-design document. Handwritten annotations, construction lines, mechanical callouts, and warm paper textures make the game logic part of the visual story.</p>
+        <h2>What I built</h2>
+        <p>A playable, self-contained 2.5D slot machine with a draggable, clickable, and tappable lever; sequential reel stops; credits and result feedback; sound; and coins that appear in the tray after a win. The complete outcome is calculated before the animation starts, so the symbols shown always match the game result.</p>
 
-        <h2>Technical &amp; mechanical architecture</h2>
-        <ul>
-          <li><strong>Layered 2.5D construction:</strong> The cabinet, reels, lever, symbols, and coin tray are isolated visual layers animated with HTML, CSS transforms, and vanilla JavaScript rather than a heavy WebGL framework.</li>
-          <li><strong>Mechanical lever trajectory:</strong> The lever follows the side of the cabinet like a crank mechanism. It supports drag-to-pull as well as click or tap interaction for desktop and mobile.</li>
-          <li><strong>Pre-calculated stopping logic:</strong> The engine chooses the complete outcome before rotation begins. The reels then stop sequentially, creating anticipation while keeping the displayed result consistent with the mathematical result.</li>
-        </ul>
-
-        <h2>Mathematical model</h2>
-        <p>Each reel has 20 virtual stops: one Seven, two Diamonds, three Bells, five Cherries, and nine Lemons. Three independently sampled reels therefore produce 20³, or 8,000, equally likely stop combinations. Only three matching symbols on the marked center line win.</p>
-        <div class="math-summary" aria-label="Classic model statistics">
-          <span>Winning outcomes <strong>890 / 8,000</strong></span>
-          <span>Hit frequency <strong>11.125%</strong></span>
-          <span>Theoretical RTP <strong>91.2%</strong></span>
-          <span>House edge <strong>8.8%</strong></span>
+        <h2>Wins, rewards &amp; probability</h2>
+        <p>A win requires three identical symbols on the marked center payline. Payouts are Seven 500×, Diamond 100×, Bell 40×, Cherry 16×, and Lemon 4×. Every mode uses 20 virtual stops per reel—8,000 equally likely three-reel combinations—but changes the symbol distribution to create a different risk profile.</p>
+        <div class="math-summary" aria-label="Probability statistics for all game modes">
+          <span>Friendly <strong>14.425% hit · 96.0% RTP</strong></span>
+          <span>Classic <strong>11.125% hit · 91.2% RTP</strong></span>
+          <span>High Roller <strong>9.700% hit · 92.0% RTP</strong></span>
+          <span>Win condition <strong>3 matching center symbols</strong></span>
         </div>
-        <p>Payout multipliers are Seven 500×, Diamond 100×, Bell 40×, Cherry 16×, and Lemon 4×. These values are calculated from the same configuration used by the playable machine rather than being decorative labels.</p>
+        <p>The notebook's math panel updates when the mode changes. I enumerated all 8,000 outcomes for each setup to verify its hit rate and theoretical return rather than relying only on simulation.</p>
 
-        <h2>AI toolchain &amp; iteration</h2>
+        <h2>How it works &amp; source</h2>
         <ul>
-          <li><strong>Gemini:</strong> strategic planning, concept evaluation, workflow architecture, and mathematical cross-checking.</li>
-          <li><strong>Claude Design:</strong> interface exploration, layout assembly, and the final notebook presentation.</li>
-          <li><strong>ChatGPT / Codex:</strong> game logic, probability verification, 2.5D asset separation, perspective and mechanical corrections, responsive interaction, and audio integration.</li>
+          <li><strong>Lightweight implementation:</strong> The cabinet, reels, lever, symbols, and coins are separate HTML/CSS layers animated with vanilla JavaScript, avoiding a heavier WebGL build.</li>
+          <li><strong>Clear anticipation:</strong> The engine selects the three stops first, then lands the reels one by one with a longer final delay.</li>
+          <li><strong>Shareable delivery:</strong> The prototype and its source are available in the linked repository and can run as a normal web page.</li>
         </ul>
-        <p>I directed the process by selecting the art direction, rejecting weak iterations, supplying mechanical feedback, and testing whether the visuals clearly matched the calculated outcomes.</p>
+
+        <h2>AI workflow &amp; design decisions</h2>
+        <p><strong>ChatGPT / Codex</strong> helped translate the brief into game logic, build and revise the prototype, enumerate probabilities, adapt visual layers, and correct the reel, perspective, lever, mobile, and audio behavior. <strong>Claude Design</strong> supported interface exploration and the notebook layout, while <strong>Gemini</strong> supported planning and concept cross-checking.</p>
+        <p>The first generic dark-dashboard direction was rejected. I compared a clean monochrome interface with an industrial sketchbook concept, chose the sketchbook because it explains the design as an experiment, and selected layered 2.5D over full 3D to keep the result tactile, lightweight, and easy to share. I provided the art direction, references, mechanical feedback, and final judgment throughout each test-and-revision cycle.</p>
       </div>
     </div>
   </dialog>

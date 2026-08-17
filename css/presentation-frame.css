@@ -2,8 +2,8 @@
   --frame-paper: #b58b57;
   --frame-paper-panel: rgb(207 174 124 / 82%);
   --frame-ink: #292117;
-  --frame-muted: #66533e;
-  --frame-rule: #80694d;
+  --frame-muted: #4f3f2f;
+  --frame-rule: #725a3f;
   --frame-red: #b11f28;
 }
 
@@ -31,7 +31,9 @@ body {
   background-position: 0 0, 0 0, center, center;
   background-blend-mode: multiply, multiply, multiply, normal;
   color: var(--frame-ink);
-  font-family: "Courier New", Courier, monospace;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 button,
@@ -60,8 +62,8 @@ a { font: inherit; }
   background-size: 34px 34px, 34px 34px, cover;
   background-blend-mode: multiply, multiply, normal;
   box-shadow: 0 5px 16px rgb(32 32 30 / 8%);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 800;
   letter-spacing: .055em;
   text-transform: uppercase;
 }
@@ -96,7 +98,7 @@ a { font: inherit; }
   background: var(--frame-ink);
   color: var(--frame-paper);
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: .04em;
   text-transform: uppercase;
 }
@@ -147,8 +149,8 @@ a { font: inherit; }
   display: grid;
   place-items: center;
   color: var(--frame-muted);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 800;
   letter-spacing: .1em;
   text-transform: uppercase;
   transition: opacity 140ms ease;
@@ -208,8 +210,8 @@ a { font: inherit; }
 .dialog-kicker {
   margin: 0 0 8px;
   color: var(--frame-red);
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 800;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
@@ -218,7 +220,7 @@ a { font: inherit; }
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(27px, 4vw, 43px);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: -.035em;
   line-height: 1;
 }
@@ -234,15 +236,17 @@ a { font: inherit; }
 
 .dialog-copy {
   padding-top: 8px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1.65;
 }
 
 .dialog-copy h2 {
   margin: 27px 0 8px;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
@@ -259,8 +263,9 @@ a { font: inherit; }
   margin: 14px 0;
   padding: 15px 0;
   border-block: 1px solid var(--frame-rule);
-  font-family: "Courier New", Courier, monospace;
-  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .math-summary strong { color: var(--frame-red); }
@@ -271,13 +276,13 @@ a { font: inherit; }
     min-height: 52px;
     gap: 8px;
     padding: 7px 9px;
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .presentation-label,
   .source-link { display: none; }
   .presentation-actions { gap: 0; }
-  .process-button { min-height: 32px; padding: 6px 8px; font-size: 9px; }
+  .process-button { min-height: 32px; padding: 6px 8px; font-size: 10px; }
   .math-summary { grid-template-columns: 1fr; }
 }
 
