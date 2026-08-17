@@ -8,8 +8,9 @@
   <title>Navigation &amp; Layout Modernization · Part 01</title>
   <link rel="stylesheet" href="css/presentation-frame.css">
   <script src="js/process-dialog.js" defer></script>
+  <script src="js/prototype-frame.js" defer></script>
 </head>
-<body>
+<body class="part-one-page">
   <header class="presentation-bar">
     <a href="index.html"><span aria-hidden="true">←</span> Assignment overview</a>
     <span class="presentation-label">Part 01 / UI/UX app redesign</span>
@@ -19,7 +20,19 @@
     </div>
   </header>
 
-  <iframe class="prototype-frame" src="part1-original.html" title="Part 1 UI/UX redesign presentation"></iframe>
+  <div class="prototype-stage vintage-paper-stage">
+    <div class="prototype-loader" role="status" aria-live="polite">
+      <span>Opening the design review…</span>
+    </div>
+    <iframe
+      class="prototype-frame"
+      src="part1-original.html"
+      title="Part 1 UI/UX redesign presentation"
+      data-prototype-frame
+      data-ready-selector="dc-import"
+      data-page-theme="vintage-paper"
+    ></iframe>
+  </div>
 
   <dialog class="process-dialog" data-process-dialog aria-labelledby="process-title">
     <div class="dialog-inner">

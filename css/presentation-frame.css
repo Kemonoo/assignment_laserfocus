@@ -25,6 +25,18 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 
+body.part-one-page {
+  --frame-paper: #b8a989;
+  --frame-ink: #29251d;
+  --frame-muted: #625a4a;
+  --frame-rule: #8d826d;
+  background:
+    radial-gradient(circle at 18% 10%, rgb(255 247 221 / 38%) 0 1px, transparent 2px),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgb(72 58 35 / 12%) 32px),
+    var(--frame-paper);
+  background-size: 43px 47px, 100% 32px, auto;
+}
+
 button,
 a { font: inherit; }
 
@@ -97,13 +109,58 @@ a { font: inherit; }
   border-color: var(--frame-red);
 }
 
-.prototype-frame {
-  display: block;
-  width: 100%;
+.prototype-stage {
+  position: relative;
   min-height: 0;
   flex: 1;
-  border: 0;
   background: var(--frame-paper);
+  overflow: hidden;
+}
+
+.vintage-paper-stage {
+  background:
+    radial-gradient(circle at 18% 10%, rgb(255 247 221 / 38%) 0 1px, transparent 2px),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgb(72 58 35 / 12%) 32px),
+    var(--frame-paper);
+  background-size: 43px 47px, 100% 32px, auto;
+}
+
+.prototype-frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.prototype-stage.is-ready .prototype-frame { opacity: 1; }
+
+.prototype-loader {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--frame-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: opacity 140ms ease;
+}
+
+.prototype-loader span {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--frame-rule);
+}
+
+.prototype-stage.is-ready .prototype-loader {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .process-dialog {

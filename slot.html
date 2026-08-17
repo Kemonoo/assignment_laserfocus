@@ -8,6 +8,7 @@
   <title>Industrial Sketchbook Slot Prototype · Part 02</title>
   <link rel="stylesheet" href="css/presentation-frame.css">
   <script src="js/process-dialog.js" defer></script>
+  <script src="js/prototype-frame.js" defer></script>
 </head>
 <body>
   <header class="presentation-bar">
@@ -19,12 +20,19 @@
     </div>
   </header>
 
-  <iframe
-    class="prototype-frame"
-    src="jackpot-notebook.html"
-    title="Playable industrial sketchbook slot machine"
-    allow="autoplay"
-  ></iframe>
+  <div class="prototype-stage">
+    <div class="prototype-loader" role="status" aria-live="polite">
+      <span>Opening the notebook…</span>
+    </div>
+    <iframe
+      class="prototype-frame"
+      src="jackpot-notebook.html"
+      title="Playable industrial sketchbook slot machine"
+      allow="autoplay"
+      data-prototype-frame
+      data-ready-selector="slot-machine-mount"
+    ></iframe>
+  </div>
 
   <dialog class="process-dialog" data-process-dialog aria-labelledby="process-title">
     <div class="dialog-inner">
