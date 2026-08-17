@@ -3,14 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Part 1 of the AI Game Designer assignment: UI/UX review and redesign.">
-  <title>UI/UX Review · Part 01</title>
-  <style>
-    *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#f4f0e7;font-family:"Courier New",monospace}.assignment-nav{position:fixed;z-index:10;top:14px;left:14px;display:flex;gap:14px;align-items:center;padding:11px 15px;border:2px solid #20201e;background:#f4f0e7;color:#20201e;box-shadow:4px 5px 0 #20201e1c;font-size:12px;text-decoration:none;text-transform:uppercase;letter-spacing:.04em}.assignment-nav:hover{transform:translateY(-1px)}iframe{display:block;width:100%;height:100%;border:0}@media(max-width:520px){.assignment-nav{top:9px;left:9px;padding:9px 11px;font-size:10px}}
-  </style>
+  <meta name="description" content="Part 1 of Michal Petruf's technical assessment: a navigation and layout modernization study.">
+  <meta name="theme-color" content="#f4f0e7">
+  <title>Navigation &amp; Layout Modernization · Part 01</title>
+  <link rel="stylesheet" href="css/presentation-frame.css">
+  <script src="js/process-dialog.js" defer></script>
 </head>
 <body>
-  <a class="assignment-nav" href="index.html"><span aria-hidden="true">←</span> Assignment overview</a>
-  <iframe src="part1-original.html" title="Part 1 UI/UX redesign presentation"></iframe>
+  <header class="presentation-bar">
+    <a href="index.html"><span aria-hidden="true">←</span> Assignment overview</a>
+    <span class="presentation-label">Part 01 / UI/UX app redesign</span>
+    <div class="presentation-actions">
+      <button class="process-button" type="button" data-dialog-open>Behind the design</button>
+      <a class="source-link" href="https://github.com/Kemonoo/assignment_laserfocus">Source ↗</a>
+    </div>
+  </header>
+
+  <iframe class="prototype-frame" src="part1-original.html" title="Part 1 UI/UX redesign presentation"></iframe>
+
+  <dialog class="process-dialog" data-process-dialog aria-labelledby="process-title">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <div>
+          <p class="dialog-kicker">Process &amp; methodology · Part 01</p>
+          <h1 id="process-title">Navigation &amp; Layout Modernization</h1>
+        </div>
+        <button class="dialog-close" type="button" data-dialog-close aria-label="Close methodology">×</button>
+      </div>
+      <div class="dialog-copy">
+        <h2>Overview &amp; objectives</h2>
+        <p>The redesign replaces rigid, high-friction interface elements with a cleaner and more cohesive bottom navigation system. The goal was to reduce visual noise while keeping the most important destinations within comfortable thumb reach.</p>
+        <p>The restructured navigation covers Shop, Competitions, Profile, Team, Play, and Settings.</p>
+
+        <h2>Design &amp; AI execution</h2>
+        <ol>
+          <li><strong>Recreation and ideation:</strong> I supplied raw application screenshots and used Claude Design to recreate their layout as clean, editable interface frames.</li>
+          <li><strong>Iterative exploration:</strong> I compared several bottom-bar configurations to establish a clear hierarchy and improve one-handed navigation.</li>
+          <li><strong>Selection and implementation:</strong> I selected the two strongest variations, prioritizing minimal visual noise and easy access to the primary action, and converted them into working HTML/CSS presentations.</li>
+        </ol>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>
