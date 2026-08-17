@@ -1,59 +1,63 @@
-# AI-assisted process
+# AI-assisted design process
 
-## Problem framing
+## Starting point
 
-The central design decision was to avoid another branded slot-machine reskin. Generating a familiar casino interface is straightforward; making the rules, selected outcome and long-run mathematics legible is the more relevant product and engineering challenge.
+The assignment required two distinct outcomes: a UI/UX redesign and a working slot-machine prototype whose winning rules, source code, and AI-assisted process could be clearly explained.
 
-That led to the **Glass Box Slot Lab** concept: the playable object sits beside a transparent engine panel. The reviewer can see the model totals before playing, audit every completed spin, inspect each selected stop, and compare a random simulation with an exhaustive theoretical calculation.
+For Part 2, the first concept was a “Glass Box Slot Lab”: a playable machine beside an explanation of the probability model. The first implementation proved the engine and mathematics, but its dark dashboard styling felt generic and did not establish a memorable art direction. I rejected that presentation and changed the workflow from code-first generation to reference-led iteration.
 
-The interaction uses fictional credits and deliberately excludes deposits, purchases, accounts, urgency, retention loops and other real-money or manipulative mechanics.
+## Establishing the visual direction
+
+I supplied a vintage one-armed-bandit reference and explored two directions with AI:
+
+1. A clean monochrome editorial interface.
+2. An industrial-design sketchbook presentation.
+
+I selected the sketchbook direction because it gave the machine stronger physical proportions and turned the supporting explanation into part of the concept. Sections such as “How to win,” “Last pull,” and “Why these odds?” make the page read like an annotated prototype rather than a casino landing page.
+
+A fully modelled 3D implementation was considered, but it would have required mesh cleanup, separated moving parts, rigging, and a WebGL renderer. For the assignment scope, I chose a lighter 2.5D method: generated and reconstructed visual layers are animated with HTML, CSS transforms, and vanilla JavaScript.
+
+## Interaction and mechanical iteration
+
+The machine was refined through repeated visual and interaction feedback:
+
+- The cabinet, reel symbols, and winning zone were aligned to the same perspective.
+- The symbol strip was moved vertically until the selected objects landed clearly inside the center rectangles.
+- The initial lever rotated away from the cabinet. Its path was corrected to travel parallel to the right side and approximate the crank mechanism around the side wheel.
+- The lever supports dragging on desktop and tap/click interaction on mobile. Touch suppression is limited to the interactive lever so the surrounding notebook can still scroll.
+- The complete result is selected before animation. Reels then stop one by one, with a longer delay on the final reel, so the animation creates anticipation without affecting the outcome.
+- Browser-generated sounds provide lever, spin, reel-stop, and payout feedback without requiring an audio service.
+- Winning coins appear in the lower tray, with a larger display for high-value wins.
+
+The slot machine was ultimately isolated as a self-contained artifact so its interaction could be developed independently and inserted into the final presentation without coupling it to an unsuccessful earlier page design.
+
+## Game design and mathematical verification
+
+The Classic model uses five symbols distributed across 20 virtual stops per reel:
+
+| Symbol | Stops | Payout |
+|---|---:|---:|
+| Seven | 1 | 500× |
+| Diamond | 2 | 100× |
+| Bell | 3 | 40× |
+| Cherry | 5 | 16× |
+| Lemon | 9 | 4× |
+
+With three independently sampled reels there are `20³ = 8,000` equally likely stop combinations. A win requires three identical center symbols, so the number of winning combinations is:
+
+```text
+1³ + 2³ + 3³ + 5³ + 9³ = 890
+```
+
+This produces an 11.125% hit rate. Applying the payout multipliers to every winning combination produces 7,296 returned wager units across 8,000 unit wagers: a theoretical RTP of 91.2% and a house edge of 8.8%.
+
+The result is not selected by the animation. The engine samples exact reel stops first, settles the wager, and only then animates the reels to reveal those stops. The readable reference engine is tested by exhaustively enumerating all 8,000 Classic outcomes instead of trusting manually written interface labels or a finite random simulation.
 
 ## Division of work
 
-### Ideation
+- **Gemini:** strategic planning, early concept evaluation, prompt engineering, workflow architecture, and mathematical cross-checking.
+- **Claude Design:** visual ideation, Part 1 interface recreation, layout exploration, and final sketchbook notebook assembly.
+- **ChatGPT / Codex:** slot engine implementation, tests, 2.5D asset work, mechanical and perspective corrections, mobile interaction, custom audio triggers, documentation, and repository integration.
+- **Human direction:** selected the visual direction, supplied references, rejected weak outputs, explained the mechanical corrections, prioritized revisions, and verified whether the interface communicated each result clearly.
 
-- Explored how Part 2 could demonstrate product judgment instead of visual theming alone.
-- Selected the side-by-side machine and data-panel direction.
-- Reduced the scope to one payline, a fixed wager and exact triple matches so every rule remains explainable.
-
-### Implementation
-
-- Kept configuration, mathematical logic and DOM behavior in separate readable files.
-- Defined all 20 stops on every reel explicitly.
-- Selected each outcome before animating its reveal.
-- Used locally contained SVG symbols and no runtime dependencies.
-
-### Testing and verification
-
-- Exhaustively enumerated all 8,000 possible center-line outcomes from the actual configuration.
-- Compared integer totals with the intended model invariants.
-- Added deterministic Node checks for frequency totals, payouts, balance settlement and injected random values.
-- Reviewed keyboard behavior, reduced motion, responsive layout and the separation between player and simulation state.
-
-### Human review
-
-Before submission, the candidate should:
-
-- Review all product copy and visual details in the deployed site.
-- Confirm Part 1 still behaves exactly as the original artifact.
-- Test the final GitHub Pages URL on desktop and a physical mobile device.
-- Confirm this disclosure lists only tools and prompt iterations that were genuinely used.
-
-## AI tools actually used — candidate review required
-
-Edit this list before submission so product names and model names are exact:
-
-- **Gemini** — early exploration of the side-by-side playable-machine and explanatory-panel direction.
-- **ChatGPT / Codex** — concept refinement, implementation, engine tests, responsive review and documentation.
-- **Candidate:** add, remove or correct entries here; do not list a tool merely because it was considered.
-
-## Prompt iterations — candidate review required
-
-Replace or expand these summaries if the assignment requires verbatim prompts:
-
-1. **Concept exploration:** Propose a distinctive, achievable slot-machine prototype for a job application, with the playable game and its data shown side by side.
-2. **Scope and mathematics:** Define a small three-reel model whose exact hit frequency, RTP and house edge can be derived and verified.
-3. **Implementation brief:** Preserve the existing Part 1 artifact; build a static “Glass Box Slot Lab” with explicit reel strips, one center payline, injected randomness, exhaustive enumeration, a last-spin audit and a separate 10,000-spin simulation.
-4. **Quality pass:** Verify the mathematics, source separation, keyboard handling, reduced motion, mobile layout and documentation before publication.
-
-Only include prompt text or summaries that reflect the real working process.
+The project therefore did not come from a single prompt. AI accelerated exploration and implementation, while human review determined which outputs were kept, corrected, combined, or discarded. The runtime game itself is a conventional explicit probability engine; AI helped build it but does not decide live outcomes.
