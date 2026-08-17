@@ -6,7 +6,7 @@
 
   const stage = frame.closest(".prototype-stage");
   const readySelector = frame.dataset.readySelector;
-  const timeoutAt = Date.now() + 20000;
+  let timeoutAt = Date.now() + 20000;
   let readySince = 0;
 
   function bundleIsReady() {
@@ -143,6 +143,121 @@
       setImportant(status.querySelector("strong"), "color", "#541018");
       setImportant(status.querySelector("strong"), "font-weight", "800");
     });
+
+    const cheatToggle = queryDeepAll(doc, "button").find((button) => {
+      const copy = button.textContent.replace(/\s+/g, " ").trim().toLowerCase();
+      return copy === "cheats on" || copy === "cheats off";
+    });
+    if (cheatToggle) {
+      setImportant(cheatToggle, "background-color", "#f7f3e9");
+      setImportant(cheatToggle, "color", "#292117");
+      setImportant(cheatToggle, "border-color", "#292117");
+      setImportant(cheatToggle, "font-size", "14px");
+      setImportant(cheatToggle, "font-weight", "800");
+      setImportant(cheatToggle, "box-shadow", "2px 3px 0 rgba(41, 33, 23, .16)");
+
+      const cheatPanel = cheatToggle.parentElement && cheatToggle.parentElement.parentElement;
+      if (cheatPanel) {
+        cheatPanel.querySelectorAll("button").forEach((button) => {
+          setImportant(button, "background-color", "rgba(247, 243, 233, .84)");
+          setImportant(button, "color", "#292117");
+          setImportant(button, "font-size", "14px");
+          setImportant(button, "font-weight", "700");
+          button.querySelectorAll("span").forEach((span) => {
+            if (!span.textContent.trim()) return;
+            setImportant(span, "color", "#292117");
+            setImportant(span, "font-size", "14px");
+            setImportant(span, "font-weight", "800");
+          });
+        });
+
+        [...cheatPanel.querySelectorAll("div")].forEach((node) => {
+          const copy = node.textContent.replace(/\s+/g, " ").trim();
+          if (copy.startsWith("Forces that line")) {
+            setImportant(node, "font-size", "15px");
+            setImportant(node, "font-weight", "700");
+            setImportant(node, "line-height", "1.6");
+            setImportant(node, "color", "#392f25");
+          }
+        });
+      }
+
+      if (!cheatToggle.dataset.presentationWired) {
+        cheatToggle.dataset.presentationWired = "true";
+        cheatToggle.addEventListener("click", () => {
+          [0, 60, 180].forEach((delay) => window.setTimeout(applyPaperTheme, delay));
+        });
+      }
+    }
+
+    const lastPullSection = sections.find((section) => (
+      section.querySelector("h2")?.textContent.trim() === "Last pull"
+    ));
+    if (lastPullSection && !lastPullSection.querySelector("[data-reset-slot-session]")) {
+      const resetButton = doc.createElement("button");
+      resetButton.type = "button";
+      resetButton.dataset.resetSlotSession = "true";
+      resetButton.textContent = "Reset session";
+      resetButton.setAttribute("aria-label", "Reset credits and session statistics");
+      setImportant(resetButton, "display", "block");
+      setImportant(resetButton, "margin", "15px 0 0 auto");
+      setImportant(resetButton, "padding", "7px 10px");
+      setImportant(resetButton, "border", "2px solid #292117");
+      setImportant(resetButton, "border-radius", "0");
+      setImportant(resetButton, "background", "#f7f3e9");
+      setImportant(resetButton, "color", "#292117");
+      setImportant(resetButton, "font-family", "Arial, Helvetica, sans-serif");
+      setImportant(resetButton, "font-size", "12px");
+      setImportant(resetButton, "font-weight", "800");
+      setImportant(resetButton, "letter-spacing", ".06em");
+      setImportant(resetButton, "text-transform", "uppercase");
+      setImportant(resetButton, "cursor", "pointer");
+      resetButton.addEventListener("click", () => resetSlotSession(doc));
+      lastPullSection.append(resetButton);
+    }
+
+    const friendlyNote = queryDeepAll(doc, "div").find((node) => (
+      node.textContent.trim().startsWith("Friendly moves one stop")
+    ));
+    if (friendlyNote) setImportant(friendlyNote.parentElement, "display", "none");
+
+    let savedModel = null;
+    try {
+      savedModel = doc.defaultView.sessionStorage.getItem("slot-reset-model");
+    } catch (error) {
+      savedModel = null;
+    }
+    const machine = queryDeepAll(doc, "slot-machine")[0];
+    if (savedModel && machine) {
+      if (machine.modelId !== savedModel && typeof machine.setModel === "function") {
+        machine.setModel(savedModel);
+      }
+      doc.defaultView.sessionStorage.removeItem("slot-reset-model");
+      const savedScroll = Number(doc.defaultView.sessionStorage.getItem("slot-reset-scroll"));
+      doc.defaultView.sessionStorage.removeItem("slot-reset-scroll");
+      if (Number.isFinite(savedScroll)) {
+        doc.defaultView.requestAnimationFrame(() => doc.defaultView.scrollTo(0, savedScroll));
+      }
+    }
+  }
+
+  function resetSlotSession(doc) {
+    const machine = queryDeepAll(doc, "slot-machine")[0];
+    try {
+      doc.defaultView.sessionStorage.setItem("slot-reset-model", machine?.modelId || "classic");
+      doc.defaultView.sessionStorage.setItem("slot-reset-scroll", String(doc.defaultView.scrollY));
+    } catch (error) {
+      // Storage can be unavailable in local file previews; reset still works.
+    }
+
+    stage.classList.remove("is-ready");
+    const loader = stage.querySelector(".prototype-loader");
+    if (loader) loader.setAttribute("aria-hidden", "false");
+    readySince = 0;
+    timeoutAt = Date.now() + 20000;
+    frame.dataset.loaded = "false";
+    frame.addEventListener("load", checkReadiness, { once: true });
+    doc.defaultView.location.reload();
   }
 
   function applyPaperTheme() {
