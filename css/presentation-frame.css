@@ -1,8 +1,9 @@
 :root {
-  --frame-paper: #f4f0e7;
-  --frame-ink: #20201e;
-  --frame-muted: #6e6960;
-  --frame-rule: #bbb3a5;
+  --frame-paper: #b58b57;
+  --frame-paper-panel: rgb(207 174 124 / 82%);
+  --frame-ink: #292117;
+  --frame-muted: #66533e;
+  --frame-rule: #80694d;
   --frame-red: #b11f28;
 }
 
@@ -20,21 +21,17 @@ body {
   min-width: 320px;
   flex-direction: column;
   overflow: hidden;
-  background: var(--frame-paper);
+  background-color: var(--frame-paper);
+  background-image:
+    repeating-linear-gradient(0deg, rgb(62 80 92 / 13%) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgb(62 80 92 / 13%) 0 1px, transparent 1px 34px),
+    linear-gradient(rgb(102 66 31 / 16%), rgb(102 66 31 / 16%)),
+    url("../assets/aged-paper.jpg");
+  background-size: 34px 34px, 34px 34px, 100% 100%, cover;
+  background-position: 0 0, 0 0, center, center;
+  background-blend-mode: multiply, multiply, multiply, normal;
   color: var(--frame-ink);
   font-family: "Courier New", Courier, monospace;
-}
-
-body.part-one-page {
-  --frame-paper: #b8a989;
-  --frame-ink: #29251d;
-  --frame-muted: #625a4a;
-  --frame-rule: #8d826d;
-  background:
-    radial-gradient(circle at 18% 10%, rgb(255 247 221 / 38%) 0 1px, transparent 2px),
-    repeating-linear-gradient(0deg, transparent 0 31px, rgb(72 58 35 / 12%) 32px),
-    var(--frame-paper);
-  background-size: 43px 47px, 100% 32px, auto;
 }
 
 button,
@@ -55,7 +52,13 @@ a { font: inherit; }
   gap: 16px;
   padding: 9px clamp(12px, 2.2vw, 28px);
   border-bottom: 2px solid var(--frame-ink);
-  background: var(--frame-paper);
+  background-color: rgb(181 139 87 / 92%);
+  background-image:
+    repeating-linear-gradient(0deg, rgb(62 80 92 / 11%) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgb(62 80 92 / 11%) 0 1px, transparent 1px 34px),
+    url("../assets/aged-paper.jpg");
+  background-size: 34px 34px, 34px 34px, cover;
+  background-blend-mode: multiply, multiply, normal;
   box-shadow: 0 5px 16px rgb(32 32 30 / 8%);
   font-size: 11px;
   font-weight: 700;
@@ -113,16 +116,14 @@ a { font: inherit; }
   position: relative;
   min-height: 0;
   flex: 1;
-  background: var(--frame-paper);
+  background-color: var(--frame-paper);
+  background-image:
+    repeating-linear-gradient(0deg, rgb(62 80 92 / 13%) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgb(62 80 92 / 13%) 0 1px, transparent 1px 34px),
+    url("../assets/aged-paper.jpg");
+  background-size: 34px 34px, 34px 34px, cover;
+  background-blend-mode: multiply, multiply, normal;
   overflow: hidden;
-}
-
-.vintage-paper-stage {
-  background:
-    radial-gradient(circle at 18% 10%, rgb(255 247 221 / 38%) 0 1px, transparent 2px),
-    repeating-linear-gradient(0deg, transparent 0 31px, rgb(72 58 35 / 12%) 32px),
-    var(--frame-paper);
-  background-size: 43px 47px, 100% 32px, auto;
 }
 
 .prototype-frame {
@@ -171,7 +172,7 @@ a { font: inherit; }
   overflow: hidden;
   border: 2px solid var(--frame-ink);
   border-radius: 0;
-  background: #f8f4ea;
+  background: var(--frame-paper-panel);
   color: var(--frame-ink);
   box-shadow: 14px 18px 0 rgb(32 32 30 / 18%);
 }
@@ -185,9 +186,14 @@ a { font: inherit; }
   max-height: min(86vh, 920px);
   overflow: auto;
   padding: clamp(25px, 4vw, 50px);
-  background:
-    repeating-linear-gradient(0deg, transparent 0 31px, rgb(90 83 72 / 7%) 32px),
-    #f8f4ea;
+  background-color: var(--frame-paper-panel);
+  background-image:
+    repeating-linear-gradient(0deg, rgb(62 80 92 / 12%) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgb(62 80 92 / 12%) 0 1px, transparent 1px 34px),
+    linear-gradient(rgb(126 86 43 / 10%), rgb(126 86 43 / 10%)),
+    url("../assets/aged-paper.jpg");
+  background-size: 34px 34px, 34px 34px, 100% 100%, cover;
+  background-blend-mode: multiply, multiply, multiply, normal;
 }
 
 .dialog-head {

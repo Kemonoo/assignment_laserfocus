@@ -20,8 +20,12 @@
     }
   }
 
-  function applyVintagePaperTheme() {
-    if (frame.dataset.pageTheme !== "vintage-paper") return;
+  function setImportant(node, property, value) {
+    if (node) node.style.setProperty(property, value, "important");
+  }
+
+  function applyPaperTheme() {
+    if (frame.dataset.paperTheme !== "shared") return;
 
     let doc;
     try {
@@ -29,51 +33,64 @@
     } catch (error) {
       return;
     }
-    if (!doc || doc.getElementById("presentation-vintage-paper")) return;
+    if (!doc || !doc.body) return;
 
-    const style = doc.createElement("style");
-    style.id = "presentation-vintage-paper";
-    style.textContent = `
-      html,
-      body {
-        background: #b8a989 !important;
-      }
+    const backgroundImage = [
+      "repeating-linear-gradient(0deg, rgba(62, 80, 92, .13) 0 1px, transparent 1px 34px)",
+      "repeating-linear-gradient(90deg, rgba(62, 80, 92, .13) 0 1px, transparent 1px 34px)",
+      "linear-gradient(rgba(102, 66, 31, .16), rgba(102, 66, 31, .16))",
+      'url("assets/aged-paper.jpg")'
+    ].join(", ");
+    const paperNodes = [doc.documentElement, doc.body];
+    const kind = frame.dataset.prototypeKind;
+    const shell = [...doc.querySelectorAll("div")].find((node) => {
+      if (node.style.minHeight !== "100vh") return false;
+      const copy = node.textContent || "";
+      return kind === "part1"
+        ? copy.includes("Hockey app redesign")
+        : copy.includes("The Jackpot Machine");
+    });
+    if (shell) paperNodes.push(shell);
 
-      x-dc > div:first-child {
-        color: #29251d !important;
-        background:
-          radial-gradient(circle at 18% 10%, rgba(255, 247, 221, .38) 0 1px, transparent 2px),
-          repeating-linear-gradient(0deg, transparent 0 31px, rgba(72, 58, 35, .12) 32px),
-          #b8a989 !important;
-        background-size: 43px 47px, 100% 32px, auto !important;
-      }
+    paperNodes.forEach((node) => {
+      setImportant(node, "background-color", "#b58b57");
+      setImportant(node, "background-image", backgroundImage);
+      setImportant(node, "background-size", "34px 34px, 34px 34px, 100% 100%, cover");
+      setImportant(node, "background-position", "0 0, 0 0, center, center");
+      setImportant(node, "background-attachment", "fixed");
+      setImportant(node, "background-blend-mode", "multiply, multiply, multiply, normal");
+    });
 
-      x-dc > div > div > div:first-child > span:first-child {
-        color: #29251d !important;
-        font-family: Georgia, "Times New Roman", serif !important;
-        font-weight: 400 !important;
-        letter-spacing: -.025em !important;
-      }
+    if (kind !== "part1") return;
 
-      x-dc > div > div > div:first-child > span:last-child,
-      x-dc > div > div > div:nth-child(2) > div > div:first-child > div:first-child > div {
-        color: #5f5748 !important;
-        font-family: "Courier New", Courier, monospace !important;
-      }
+    const textNodes = [...doc.querySelectorAll("span, div")];
+    const findExact = (copy) => textNodes.find((node) => node.textContent.trim() === copy);
+    const findStart = (copy) => textNodes.find((node) => node.textContent.trim().startsWith(copy));
+    const title = findExact("Hockey app redesign — side by side");
+    const summary = findStart("5-tab nav, Play centered");
+    const variantTitles = [findExact("1a · Broadcast"), findExact("1d · Glass")];
+    const variantNotes = [findExact("Dense, neutral, one accent"), findExact("Frosted layers, soft depth")];
 
-      x-dc > div > div > div:nth-child(2) > div > div:first-child > div:first-child > div:first-child {
-        color: #29251d !important;
-        font-weight: 700 !important;
-      }
-    `;
-    doc.head.appendChild(style);
+    setImportant(title, "color", "#292117");
+    setImportant(title, "font-family", 'Georgia, "Times New Roman", serif');
+    setImportant(title, "font-weight", "400");
+    setImportant(title, "letter-spacing", "-.025em");
+    [summary, ...variantTitles, ...variantNotes].forEach((node) => {
+      setImportant(node, "font-family", '"Courier New", Courier, monospace');
+    });
+    [summary, ...variantNotes].forEach((node) => setImportant(node, "color", "#66533e"));
+    variantTitles.forEach((node) => {
+      setImportant(node, "color", "#292117");
+      setImportant(node, "font-weight", "700");
+    });
   }
 
   function reveal() {
-    applyVintagePaperTheme();
+    applyPaperTheme();
     stage.classList.add("is-ready");
     const loader = stage.querySelector(".prototype-loader");
     if (loader) loader.setAttribute("aria-hidden", "true");
+    [150, 500, 1200].forEach((delay) => window.setTimeout(applyPaperTheme, delay));
   }
 
   function checkReadiness() {

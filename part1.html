@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Part 1 of Michal Petruf's technical assessment: a navigation and layout modernization study.">
-  <meta name="theme-color" content="#f4f0e7">
+  <meta name="theme-color" content="#b58b57">
   <title>Navigation &amp; Layout Modernization · Part 01</title>
   <link rel="stylesheet" href="css/presentation-frame.css">
   <script src="js/process-dialog.js" defer></script>
@@ -20,7 +20,7 @@
     </div>
   </header>
 
-  <div class="prototype-stage vintage-paper-stage">
+  <div class="prototype-stage">
     <div class="prototype-loader" role="status" aria-live="polite">
       <span>Opening the design review…</span>
     </div>
@@ -29,8 +29,8 @@
       src="part1-original.html"
       title="Part 1 UI/UX redesign presentation"
       data-prototype-frame
-      data-ready-selector="dc-import"
-      data-page-theme="vintage-paper"
+      data-paper-theme="shared"
+      data-prototype-kind="part1"
     ></iframe>
   </div>
 
@@ -44,16 +44,34 @@
         <button class="dialog-close" type="button" data-dialog-close aria-label="Close methodology">×</button>
       </div>
       <div class="dialog-copy">
-        <h2>Overview &amp; objectives</h2>
-        <p>The redesign replaces rigid, high-friction interface elements with a cleaner and more cohesive bottom navigation system. The goal was to reduce visual noise while keeping the most important destinations within comfortable thumb reach.</p>
-        <p>The restructured navigation covers Shop, Competitions, Profile, Team, Play, and Settings.</p>
+        <h2>1. Problem statement</h2>
+        <ul>
+          <li><strong>Outdated visuals:</strong> The original app interface feels dated and visually cluttered.</li>
+          <li><strong>Messy navigation:</strong> Referrals occupied prime space in the bottom navigation despite being a secondary feature, taking attention away from the core gameplay flow.</li>
+          <li><strong>Missing settings:</strong> There was no dedicated Settings menu where players could adjust audio, manage their account, or access other preferences.</li>
+        </ul>
 
-        <h2>Design &amp; AI execution</h2>
-        <ol>
-          <li><strong>Recreation and ideation:</strong> I supplied raw application screenshots and used Claude Design to recreate their layout as clean, editable interface frames.</li>
-          <li><strong>Iterative exploration:</strong> I compared several bottom-bar configurations to establish a clear hierarchy and improve one-handed navigation.</li>
-          <li><strong>Selection and implementation:</strong> I selected the two strongest variations, prioritizing minimal visual noise and easy access to the primary action, and converted them into working HTML/CSS presentations.</li>
-        </ol>
+        <h2>2. Proposed solution</h2>
+        <ul>
+          <li><strong>Navigation-bar cleanup:</strong> I removed Referrals from the bottom bar and centered the Play button to give the primary action more emphasis. The core tabs are now Shop, Competitions, Profile, Team, and Play.</li>
+          <li><strong>New Settings menu:</strong> I added a clear Settings button in the top-right corner. It now contains Referrals, audio controls, and account-management tools.</li>
+          <li><strong>Visual refresh:</strong> I designed two modern theme variations to demonstrate a cleaner, more contemporary visual direction.</li>
+        </ul>
+
+        <h2>3. Measuring success</h2>
+        <p>Design changes are partly subjective, so their impact is difficult to judge confidently before release. The strongest evaluation combines direct player feedback with behavioral data after the update goes live.</p>
+        <ul>
+          <li><strong>Player feedback:</strong> Ask the community directly and review responses to the new visual design and navigation.</li>
+          <li><strong>Engagement statistics:</strong> Compare metrics such as Daily Active Users, session length, and revenue before and after the update.</li>
+          <li><strong>Feature usage:</strong> Track whether players use the new Settings menu for actions such as muting the game or linking accounts, and measure how relocating Referrals affects its usage.</li>
+        </ul>
+
+        <h2>4. Process &amp; methodology</h2>
+        <ul>
+          <li><strong>Recreation:</strong> I took raw screenshots of the original app and used Claude Design to rebuild them as clean, editable interface frames.</li>
+          <li><strong>Layout adjustments:</strong> I experimented with the bottom bar to find the clearest way to center the main gameplay loop and remove unnecessary visual weight.</li>
+          <li><strong>Implementation:</strong> I selected the two strongest modern themes and converted them into working HTML/CSS prototypes so the redesigns can be viewed and interacted with directly.</li>
+        </ul>
       </div>
     </div>
   </dialog>
