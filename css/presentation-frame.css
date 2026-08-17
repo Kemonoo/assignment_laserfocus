@@ -5,6 +5,7 @@
   --frame-muted: #4f3f2f;
   --frame-rule: #725a3f;
   --frame-red: #b11f28;
+  --frame-emphasis: #541018;
 }
 
 * { box-sizing: border-box; }
@@ -268,7 +269,10 @@ a { font: inherit; }
   font-weight: 700;
 }
 
-.math-summary strong { color: var(--frame-red); }
+.math-summary strong {
+  color: var(--frame-emphasis);
+  font-weight: 800;
+}
 
 @media (max-width: 720px) {
   .presentation-bar {

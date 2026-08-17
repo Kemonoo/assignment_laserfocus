@@ -78,6 +78,73 @@
     });
   }
 
+  function enhanceSlotNotebook(doc) {
+    const sectionNames = new Set([
+      "How to win",
+      "Last pull",
+      "Why these odds?",
+      "Change the model",
+    ]);
+    const sections = queryDeepAll(doc, "section").filter((section) => {
+      const heading = section.querySelector("h2");
+      return heading && sectionNames.has(heading.textContent.trim());
+    });
+
+    sections.forEach((section) => {
+      setImportant(section, "padding", "clamp(17px, 2vw, 22px)");
+      setImportant(section, "border-radius", "5px");
+      setImportant(section, "background-color", "rgba(249, 235, 207, .42)");
+
+      const heading = section.querySelector("h2");
+      setImportant(heading, "font-size", "clamp(32px, 3.5vw, 42px)");
+      setImportant(heading, "font-weight", "700");
+
+      section.querySelectorAll("p").forEach((paragraph) => {
+        setImportant(paragraph, "font-size", "16px");
+        setImportant(paragraph, "font-weight", "700");
+        setImportant(paragraph, "line-height", "1.65");
+        setImportant(paragraph, "color", "#33291f");
+      });
+    });
+
+    const mutedColors = new Set([
+      "rgb(107, 100, 89)",
+      "rgb(125, 118, 107)",
+      "rgb(74, 69, 61)",
+      "rgb(139, 131, 117)",
+    ]);
+    queryDeepAll(doc, "p, div, span, button").forEach((node) => {
+      if (node.closest("slot-machine")) return;
+      const hasDirectCopy = [...node.childNodes].some((child) => (
+        child.nodeType === Node.TEXT_NODE && child.textContent.trim()
+      ));
+      if (!hasDirectCopy && !node.matches("p, button")) return;
+
+      const styles = frame.contentWindow.getComputedStyle(node);
+      const size = Number.parseFloat(styles.fontSize);
+      if (Number.isFinite(size) && size < 13) {
+        setImportant(node, "font-size", "13px");
+      } else if (Number.isFinite(size) && size < 15.5) {
+        setImportant(node, "font-size", "15px");
+      }
+      if (Number.parseInt(styles.fontWeight, 10) < 700) {
+        setImportant(node, "font-weight", "700");
+      }
+      if (mutedColors.has(styles.color)) setImportant(node, "color", "#44362a");
+    });
+
+    queryDeepAll(doc, ".machine-status").forEach((status) => {
+      setImportant(status, "left", "11%");
+      setImportant(status, "top", "63.85%");
+      setImportant(status, "transform", "skewX(-3deg) rotate(2.2deg)");
+      setImportant(status, "font-size", "clamp(.76rem, 2.2vw, 1rem)");
+      setImportant(status, "font-weight", "700");
+      setImportant(status, "color", "#392f25");
+      setImportant(status.querySelector("strong"), "color", "#541018");
+      setImportant(status.querySelector("strong"), "font-weight", "800");
+    });
+  }
+
   function applyPaperTheme() {
     if (frame.dataset.paperTheme !== "shared") return;
 
@@ -115,6 +182,10 @@
       setImportant(node, "background-blend-mode", "multiply, multiply, multiply, normal");
     });
 
+    if (kind === "slot") {
+      enhanceSlotNotebook(doc);
+      return;
+    }
     if (kind !== "part1") return;
 
     const textNodes = queryDeepAll(doc, "span, div");
