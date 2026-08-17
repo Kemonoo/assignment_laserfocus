@@ -47,28 +47,36 @@
       </div>
       <div class="dialog-copy">
         <h2>What I built</h2>
-        <p>A playable, self-contained 2.5D slot machine with a draggable, clickable, and tappable lever; sequential reel stops; credits and result feedback; sound; and coins that appear in the tray after a win. The complete outcome is calculated before the animation starts, so the symbols shown always match the game result.</p>
+        <p>A playable, self-contained 2.5D slot machine with a draggable, clickable, and tappable lever, sequential reel stops, a credit system, win feedback, sound effects, and coin-drop effects. At the start of each pull, the game randomly selects one position from each virtual reel before the animation begins. The reels then animate to those positions, ensuring the spinning visuals always match the selected result.</p>
 
         <h2>Wins, rewards &amp; probability</h2>
-        <p>A win requires three identical symbols on the marked center payline. Payouts are Seven 500×, Diamond 100×, Bell 40×, Cherry 16×, and Lemon 4×. Every mode uses 20 virtual stops per reel—8,000 equally likely three-reel combinations—but changes the symbol distribution to create a different risk profile.</p>
+        <p>A win requires three matching symbols on the center payline. Payout multipliers are Seven 500×, Diamond 100×, Bell 40×, Cherry 16×, and Lemon 4×.</p>
+        <p>The game has three risk profiles. Each reel is a 20-position virtual strip, with common symbols occupying more positions than rare ones. Selecting one position from each reel produces 8,000 equally likely <em>stop-position combinations</em>, but only 125 visibly different three-symbol patterns. Changing the symbol distribution changes how many underlying positions produce each visible result.</p>
         <div class="math-summary" aria-label="Probability statistics for all game modes">
           <span>Friendly <strong>14.425% hit · 96.0% RTP</strong></span>
           <span>Classic <strong>11.125% hit · 91.2% RTP</strong></span>
           <span>High Roller <strong>9.700% hit · 92.0% RTP</strong></span>
           <span>Win condition <strong>3 matching center symbols</strong></span>
         </div>
-        <p>The notebook's math panel updates when the mode changes. I enumerated all 8,000 outcomes for each setup to verify its hit rate and theoretical return rather than relying only on simulation.</p>
+        <p>The math panel recalculates when the mode changes. The code counts how many positions each symbol occupies on every reel, groups the equivalent visible results, and uses those exact counts to calculate hit rate and theoretical RTP rather than estimating them through random simulation.</p>
 
-        <h2>How it works &amp; source</h2>
+        <h2>How it works</h2>
         <ul>
-          <li><strong>Lightweight implementation:</strong> The cabinet, reels, lever, symbols, and coins are separate HTML/CSS layers animated with vanilla JavaScript, avoiding a heavier WebGL build.</li>
-          <li><strong>Clear anticipation:</strong> The engine selects the three stops first, then lands the reels one by one with a longer final delay.</li>
-          <li><strong>Shareable delivery:</strong> The prototype and its source are available in the linked repository and can run as a normal web page.</li>
+          <li><strong>Lightweight 2.5D engine:</strong> Instead of building a heavy 3D WebGL environment, the cabinet, reels, lever, symbols, and coins are separate image layers animated with HTML, CSS, and vanilla JavaScript.</li>
+          <li><strong>Visual anticipation:</strong> The engine selects the three target stops first, then lands the reels one by one with a slightly longer delay on the final reel to build suspense.</li>
+          <li><strong>Source and delivery:</strong> The complete prototype and source are available in the linked GitHub repository and run as a normal web page.</li>
         </ul>
 
         <h2>AI workflow &amp; design decisions</h2>
-        <p><strong>ChatGPT / Codex</strong> helped translate the brief into game logic, build and revise the prototype, enumerate probabilities, adapt visual layers, and correct the reel, perspective, lever, mobile, and audio behavior. <strong>Claude Design</strong> supported interface exploration and the notebook layout, while <strong>Gemini</strong> supported planning and concept cross-checking.</p>
-        <p>The first generic dark-dashboard direction was rejected. I compared a clean monochrome interface with an industrial sketchbook concept, chose the sketchbook because it explains the design as an experiment, and selected layered 2.5D over full 3D to keep the result tactile, lightweight, and easy to share. I provided the art direction, references, mechanical feedback, and final judgment throughout each test-and-revision cycle.</p>
+        <p>The process was a back-and-forth collaboration between different AI tools, using each for its strongest role and adapting the workflow when token or implementation limits appeared.</p>
+        <ul>
+          <li><strong>Gemini — planning &amp; text:</strong> Used for high-level brainstorming, structuring the assignment approach, and drafting written content.</li>
+          <li><strong>ChatGPT — code, assets &amp; logic:</strong> Built the initial functional game and helped develop the mechanical sketchbook direction with DALL·E concepts after the first visual version felt too generic.</li>
+          <li><strong>The 2.5D workaround:</strong> When Claude Design struggled to convert one complete sketch directly into clean interactive HTML, ChatGPT generated separate PNG layers for the cabinet, reels, lever, and coins, then assembled them so each part could move independently.</li>
+          <li><strong>Claude Design — UI &amp; website layout:</strong> Polished the assembled machine, corrected visual imperfections, and placed it inside a responsive sketchbook-style presentation.</li>
+          <li><strong>Final deployment:</strong> ChatGPT / Codex prepared the GitHub updates, verified the live-page behavior, and aligned the presentation styling across both parts of the assignment.</li>
+        </ul>
+        <p>I directed the process by choosing the art direction, selecting references, rejecting weak iterations, and giving detailed feedback on the machine's perspective, lever movement, reel cropping, and overall clarity.</p>
       </div>
     </div>
   </dialog>
